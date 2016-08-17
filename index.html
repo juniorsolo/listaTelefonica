@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="listaTelefonica">
+  <head>
+    <meta charset="UTF-8">
+    <title>Lista telefonica com angular</title>
+	  <meta charset="UTF-8"> <!--exibe caracteres especiais -->
+	  <meta http-equiv="X-UA-Compatible" content="IE-edge"> <!-- Mantem o padrão em modo compatibilidade-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Permite o design responsivo para qualquer dispositivo-->
+      <!-- Bootstrap -->
+      <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
+	 
+	  <!-- AngularJS -->
+	  <script src="lib/angular/angular.js"></script>
+	  <script src="lib/angular/angular-locale_pt-br.js"></script>
+	  <script src="lib/angular/angular-messages.js"></script>
+	  <script src="js/app.js"></script>
+	  <script src="js/services/configValue.js"></script>
+      <script src="js/controllers/listaTelefonicaController.js"></script>
+	  <script src="js/services/contatosAPIService.js"></script>
+	  <script src="js/services/operadorasAPIService.js"></script>
+	  <script src="js/services/serialGeneratorService.js"></script>
+	  <script src="js/config/serialGeneratorConfig.js"></script>
+  </head>
+  <body ng-controller="listaTelefonicaCtrl">
+	 <div class="jumbotron">
+	     <h4 ng-bind="app"></h4>
+		
+		 <input class="form-control" type="text" ng-model="buscaTudo" placeholder="Busca em toda lista..." /> 
+		 <!--<input class="form-control" type="text" ng-model="buscaNome" placeholder="Busca por nome..."/>-->
+		 <table ng-show="contatos.length > 0" class="table">
+		    <tr> 
+			    <th></th>
+				<th>Serial</th>
+		        <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+				<th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
+				<th>Operadora</th>
+				<th>Cor</th>
+				<th>Data</th>
+			</tr>
+			<!--<tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter: buscaTudo | filter:{nome: buscaNome}"> faz 2 busca em tudo e por somente nome -->
+            <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter: buscaTudo | orderBy:criterioDeOrdenacao:direcaoOrdenacao">
+			    <td><input type="checkbox" ng-model="contato.selecionado" /></td>
+				<td>{{contato.serial}}</td>
+                <td>{{contato.nome | lowercase}}</td>
+                <td>{{contato.telefone}}</td>
+                <td>{{contato.operadora.nome | uppercase}}</td> 
+                <td><div style="width: 20px; height:20px; " ng-style="{'background-color': contato.cor}"></div></td>
+                <td>{{contato.data | date:'dd/MM/yyyy HH:mm' }}</td>  				
+            </tr>
+          		
+		 </table>
+		 <!--
+		 <table class="table table-striped">
+		    <tr>
+		        <th>Nome</th>
+				<th>Telefone</th>
+				<th>Operadora</th>
+			</tr>
+        <tr ng-repeat="contato in contatos">
+                <td ng-repeat="(key,value) in contato">
+				  {{key + " : " + value}}
+				</td>			
+            </tr>-->			
+		 </table>
+		 <hr />
+		 <!-- 
+		 ###a tag <form> cria um objeto no scopo
+		 
+		 é valido: {{contatoForm.$valid}}<br />
+		 é inválido:{{contatoForm.$invalid}}
+		 -->
+		 <form name="contatoForm">
+			 <input class="form-control" name="nome" ng-minlength="3" type="text" ng-model="contato.nome" placeholder="Nome" ng-required="true"/>
+			 <input class="form-control" name="telefone" ng-minlength="8" type="text" ng-model="contato.telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/"/> <!-- começa de  4 a 5 numeros e termina $ com 4 numeros --> 
+			 <!--<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras | orderBy:'nome' "> exemplo com ordenação pelo nome com grupo-->
+			 <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome  + '    (' + (operadora.preco | currency) + ')' for operadora in operadoras | orderBy:'nome' ">
+				<option value="">Selecione uma operadora...</option>
+			 </select>		 
+		 </form>
+		 <div ng-messages="contatoForm.nome.$error" class="alert alert-danger">
+			 <div ng-message="required">
+				 Preencha o campo nome!
+			 </div>
+			 <div ng-message="minlength">
+				 O campo nome deve ter pelo menos 3 caracteres!
+			 </div>
+		 </div>
+		 <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty " class="alert alert-danger">
+		     Preencha o campo telefone!
+		 </div>
+	     <div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
+		     O campo telefone deve ter o padrão 9999-9999.
+		 </div>
+		 <button class="btn btn-primary" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar</button>
+		 <button class="btn btn-danger" ng-click="apagarContatos(contatos)" ng-show="isContatoSelecionado(contatos)">Apagar Contatos</button>
+
+     </div>
+	 <!--<div ng-include=" 'view/footer.html' "></div>
+     <!-- jQuery (necessario para os plugins Javascript Bootstrap) -->
+    <script src="lib/jquery/jquery-2.2.3.min.js"></script>
+    <script src="lib/bootstrap/bootstrap.min.js"></script>
+	
+  </body>
+</html>
