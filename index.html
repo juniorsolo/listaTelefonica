@@ -9,6 +9,8 @@
       <!-- Bootstrap -->
       <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
       <link href="css/style.css" rel="stylesheet">
+	  <link href="css/ui.css" rel="stylesheet">
+	  
 	 
 	  <!-- AngularJS -->
 	  <script src="lib/angular/angular.js"></script>
@@ -23,11 +25,14 @@
 	  <script src="js/config/serialGeneratorConfig.js"></script>
 	  <script src="js/filter/nameFilter.js"></script>
 	  <script src="js/filter/ellipsisFilter.js"></script>
+	  <script src="js/directive/uiAlertDirective.js"></script>
+	   
   </head>
   <body ng-controller="listaTelefonicaCtrl">
 	 <div class="jumbotron">
 	     <h4 ng-bind="app"></h4>
-		
+		 <div ui-alert></div>
+		 
 		 <input class="form-control" type="text" ng-model="buscaTudo" placeholder="Busca em toda lista..." /> 
 		 <!--<input class="form-control" type="text" ng-model="buscaNome" placeholder="Busca por nome..."/>-->
 		 <table ng-show="contatos.length > 0" class="table">
