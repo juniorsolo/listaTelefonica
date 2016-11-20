@@ -31,10 +31,18 @@
   <body ng-controller="listaTelefonicaCtrl">
 	 <div class="jumbotron">
 	     <h4 ng-bind="app"></h4>
-		 <div ui-alert></div>
+
+
+		 <div ui-alert title="Ops, aconteceu um problema!">
+		 	{{error}}
+		 </div>
 		 
+		 <div ui-alert title="Curso de AngularJs">
+              Aula 10 como criar uma Diretiva...
+		 </div>
+
 		 <input class="form-control" type="text" ng-model="buscaTudo" placeholder="Busca em toda lista..." /> 
-		 <!--<input class="form-control" type="text" ng-model="buscaNome" placeholder="Busca por nome... teste teste "/>-->
+		 <!--<input class="form-control" type="text" ng-model="buscaNome" placeholder="Busca por nome..."/>-->
 		 <table ng-show="contatos.length > 0" class="table">
 		    <tr> 
 			    <th></th>
