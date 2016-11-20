@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="listaTelefonica">
   <head>
+    <!--exibe caracteres especiais -->
     <meta charset="UTF-8">
     <title>Lista telefonica com angular</title>
-	  <meta charset="UTF-8"> <!--exibe caracteres especiais -->
+       
 	  <meta http-equiv="X-UA-Compatible" content="IE-edge"> <!-- Mantem o padrão em modo compatibilidade-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Permite o design responsivo para qualquer dispositivo-->
       <!-- Bootstrap -->
@@ -26,6 +27,7 @@
 	  <script src="js/filter/nameFilter.js"></script>
 	  <script src="js/filter/ellipsisFilter.js"></script>
 	  <script src="js/directive/uiAlertDirective.js"></script>
+	  <script src="js/directive/uiDateDirective.js"></script>
 	   
   </head>
   <body ng-controller="listaTelefonicaCtrl">
@@ -87,7 +89,9 @@
 		 -->
 		 <form name="contatoForm">
 			 <input class="form-control" name="nome" ng-minlength="3" type="text" ng-model="contato.nome" placeholder="Nome" ng-required="true"/>
-			 <input class="form-control" name="telefone" ng-minlength="8" type="text" ng-model="contato.telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/"/> <!-- começa de  4 a 5 numeros e termina $ com 4 numeros --> 
+			 <!-- começa de  4 a 5 numeros e termina $ com 4 numeros --> 
+			 <input class="form-control" name="telefone" ng-minlength="8" type="text" ng-model="contato.telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/"/>
+			 <input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="data" ui-date />
 			 <!--<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras | orderBy:'nome' "> exemplo com ordenação pelo nome com grupo-->
 			 <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome  + '    (' + (operadora.preco | currency) + ')' for operadora in operadoras | orderBy:'nome' ">
 				<option value="">Selecione uma operadora...</option>
