@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").directive("uiDate", function(){
+angular.module("listaTelefonica").directive("uiDate", function($filter){
 	return {
        // a propriedade link é executada depois de o template ter sido compilado, 
        //podemos utilizala para interagir com a DOM tratando evento e logica da diretiva.
@@ -20,7 +20,17 @@ angular.module("listaTelefonica").directive("uiDate", function(){
        	   	  ctrl.$setViewValue(_formatDate(ctrl.$viewValue));
        	      ctrl.$render();	
        	   });   
-       	 
+
+       	   ctrl.$parsers.push(function (value) {
+       	   	    if(value.length === 10){
+       	   	    	var dataArray = value.split("/");
+       	   	        return new Date(dataArray[2], dataArray[1] - 1, dataArray[0]).getTime();
+       	   	    }
+       	   });
+
+       	   ctrl.$formatters.push(function(value){
+               return $filter("date")(value, "dd/MM/yyyy");
+       	   });
        }  
 	};
 });
