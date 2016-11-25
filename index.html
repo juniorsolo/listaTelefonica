@@ -29,13 +29,13 @@
 	  <script src="js/directive/uiAlertDirective.js"></script>
 	  <script src="js/directive/uiDateDirective.js"></script>
 	  <script src="js/directive/uiTelefoneDirective.js"></script>
-	   
+	  <script src="js/directive/uiAccordionDirective.js"></script> 
   </head>
   <body ng-controller="listaTelefonicaCtrl">
 	 <div class="jumbotron">
 	     <h4 ng-bind="app"></h4>
 
-
+         <ui-accordion></ui-accordion>
 		 <div ui-alert title="Ops, aconteceu um problema!">
 		 	{{error}}
 		 </div>
