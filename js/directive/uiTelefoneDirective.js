@@ -12,11 +12,20 @@ angular.module("listaTelefonica").directive("uiTelefone", function(){
                 }
                 return telefone;
             };
+            //função responsavel por capturar evento keyUp
             element.bind("keyup", function(){
-       	   	  ctrl.$setViewValue( _formatPhone( ctrl.$viewValue ) );
-       	      ctrl.$render();	
-       	      console.log("diretiva telefone key upp");
+       	   	    ctrl.$setViewValue( _formatPhone( ctrl.$viewValue ) );
+       	        ctrl.$render();	
        	    }); 
+             
+             // realiza o parser do valor e envia para o scopo
+            ctrl.$parsers.push(function (value){
+               return value.replace("-","");
+            });
+            // pega o valor do scopo e envia para tela
+            ctrl.$formatters.push( function(value){
+            	return _formatPhone(value);
+            });
 
         }
 	};

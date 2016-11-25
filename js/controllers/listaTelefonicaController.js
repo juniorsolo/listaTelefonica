@@ -4,7 +4,8 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($sc
 	$scope.contatos = [];
 	$scope.operadoras = [];
 	$scope.contato = {
-		data: 1286679600000
+		data: 1286679600000,
+		telefone: "45789734" 
 	};
 	var carregarContatos = function(){
 		  contatosAPI.getContatos().success(function(data,status){		   

@@ -91,9 +91,9 @@
 		 <form name="contatoForm">
 			 <input class="form-control" name="nome" ng-minlength="3" type="text" ng-model="contato.nome" placeholder="Nome" ng-required="true"/>
 			 <!-- começa de  4 a 5 numeros e termina $ com 4 numeros --> 
-			 {{contato.telefone}}
-			 <input class="form-control" name="telefone" ng-minlength="8" ng-maxlength="9" type="text" ng-model="contato.telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" ui-telefone/>
 			 
+			 <input class="form-control" name="telefone" ng-minlength="8" ng-maxlength="9" type="text" ng-model="contato.telefone" placeholder="Telefone" ng-required="true" ng-pattern="/^\d{4,5}-\d{4}$/" ui-telefone/>
+			 {{contato.telefone}}
 			 <input class="form-control" type="text" ng-model="contato.data" name="data" placeholder="data" ui-date />
 
 			 <!--<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras | orderBy:'nome' "> exemplo com ordenação pelo nome com grupo-->
