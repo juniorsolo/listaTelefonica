@@ -7,7 +7,7 @@ angular.module("listaTelefonica").directive("uiTelefone", function(){
                 telefone = telefone.replace(/[^0-9]+/g,"");
                 if(telefone.length > 4  && telefone.length <= 8 ){
                 	telefone = telefone.substring(0,4) + "-"  + telefone.substring(4);
-                } else if (telefone.length > 5 && telefone.length === 9 ) {
+                } else if (telefone.length > 5 ) {
                     telefone = telefone.substring(0,5) + "-" + telefone.substring(5,9);
                 }
                 return telefone;
